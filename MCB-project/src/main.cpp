@@ -35,6 +35,8 @@ int main()
             drivers->leds.set(tap::gpio::Leds::Green, led_state);
             led_state = !led_state;
 
+            s.printf("blink\n");
+
             robot->update();
         }
         drivers->canRxHandler.pollCanData();  // checks to see if a msg is waiting
