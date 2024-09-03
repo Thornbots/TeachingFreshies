@@ -19,6 +19,9 @@ private:  // Private Variables
     tap::Drivers* drivers;
     GimbalSubsystem* gimbalSubsystem;
 
+    tap::motor::DjiMotor* motor;
+    tap::algorithms::SmoothPid* pidController;
+
 public:  // Public Methods
     Robot(tap::Drivers* driver, GimbalSubsystem* gimbalSubsystem);
 
