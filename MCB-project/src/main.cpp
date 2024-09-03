@@ -1,7 +1,4 @@
 #include "tap/communication/serial/uart_terminal_device.hpp"
-#include "tap/board/board.hpp"
-#include "tap/communication/serial/uart.hpp"
-#include "tap/communication/gpio/leds.hpp"
 
 #include "Gimbal/GimbalSubsystem.h"
 #include "Robot.h"
@@ -37,10 +34,9 @@ int main()
         {  // Calling this function every 10 us at max
             drivers->leds.set(tap::gpio::Leds::Green, led_state);
             led_state = !led_state;
-            s.printf("hi2 %f\n", 0.1);
 
-            // robot->update();
+            robot->update();
         }
-        // drivers->canRxHandler.pollCanData();  // checks to see if a msg is waiting
+        drivers->canRxHandler.pollCanData();  // checks to see if a msg is waiting
     }
 }
