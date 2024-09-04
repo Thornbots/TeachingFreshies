@@ -74,8 +74,8 @@ void Robot::update()
     // gimbalSubsystem->turretMove();
 
     // get remote value
-    double remote_h = drivers->remote.getChannel(tap::communication::serial::Remote::Channel::RIGHT_HORIZONTAL);
-    double remote_v = drivers->remote.getChannel(tap::communication::serial::Remote::Channel::RIGHT_VERTICAL);
+    double remote_h = drivers->remote.getChannel(tap::communication::serial::Remote::Channel::LEFT_HORIZONTAL);
+    double remote_v = drivers->remote.getChannel(tap::communication::serial::Remote::Channel::LEFT_VERTICAL);
 
     s->printf("remote: %f, %f\n", remote_h, remote_v);         // print out value
 
