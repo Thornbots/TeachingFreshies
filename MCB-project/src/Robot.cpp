@@ -2,15 +2,15 @@
 
 namespace ThornBots
 {
-Robot::Robot(tap::Drivers* driver, GimbalSubsystem* gimbalSubsystem)
+Robot::Robot(tap::Drivers* driver, GimbalSubsystem* gimbalSubsystem, modm::IOStream* s)
 {
     this->drivers = driver;
     this->gimbalSubsystem = gimbalSubsystem;
+    this->s = s;
 }
 
 void Robot::initialize()
 {
-    Board::initialize();
     drivers->can.initialize();
     drivers->remote.initialize();
 
@@ -23,6 +23,8 @@ void Robot::initialize()
 
 void Robot::update()
 {
+    s->printf("update\n");
+
     //  DO NOT REMOVE
     if (!drivers->remote.isConnected())
     {

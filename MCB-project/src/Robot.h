@@ -18,9 +18,11 @@ class Robot
 private:  // Private Variables
     tap::Drivers* drivers;
     GimbalSubsystem* gimbalSubsystem;
+    modm::IOStream* s;
+
 
 public:  // Public Methods
-    Robot(tap::Drivers* driver, GimbalSubsystem* gimbalSubsystem);
+    Robot(tap::Drivers* driver, GimbalSubsystem* gimbalSubsystem, modm::IOStream* s);
 
     void initialize();
 
