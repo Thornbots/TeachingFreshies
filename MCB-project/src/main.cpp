@@ -5,18 +5,18 @@
 
 #include "drivers_singleton.hpp"
 
-using namespace tap::communication::serial;
 
 
 static tap::arch::PeriodicMicroTimer RunTimer(
-    1000000);  // Don't ask me why. This only works as a global. #Certified Taproot Moment
+    10000);  // Don't ask me why. This only works as a global. #Certified Taproot Moment
 
 
 int main()
 {
     src::Drivers* drivers = src::DoNotUse_getDrivers();
+    Board::initialize();
 
-    UartTerminalDevice ter(drivers);
+    tap::communication::serial::UartTerminalDevice ter(drivers);
     ter.initialize();
     modm::IOStream s(ter);
 
@@ -24,12 +24,14 @@ int main()
     bool led_state = true;
 
     ThornBots::GimbalSubsystem* gimbalSubsystem = new ThornBots::GimbalSubsystem(drivers);
-    ThornBots::Robot* robot = new ThornBots::Robot(drivers, gimbalSubsystem);
+    ThornBots::Robot* robot = new ThornBots::Robot(drivers, gimbalSubsystem, &s);
 
     robot->initialize();
 
+
     while (1)
     {
+
         if (RunTimer.execute())
         {  // Calling this function every 10 us at max
             drivers->leds.set(tap::gpio::Leds::Green, led_state);
@@ -38,5 +40,6 @@ int main()
             robot->update();
         }
         drivers->canRxHandler.pollCanData();  // checks to see if a msg is waiting
+        modm::delay_us(10);
     }
 }
